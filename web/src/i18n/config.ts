@@ -1,11 +1,10 @@
-// 지원 locale 과 기본값. artex-ko 는 한국어를 기본으로 하고, 영어·중국어·스페인어를
-// 더해 네 언어를 사용자 설정으로 전환할 수 있다. 중국어("zh")는 상류 원문 대조용으로도 함께 둔다.
+// This local edition starts in English; all upstream translations remain available.
 export const LOCALES = ["en", "ko", "zh", "es"] as const;
 export type Locale = (typeof LOCALES)[number];
 
-// 기본 표시 언어는 한국어다. 영어·중국어·스페인어는 설정으로 전환하는 언어다. 빌드 시
-// NEXT_PUBLIC_LOCALE 로 덮어쓸 수 있고, 실행 중에는 사용자가 설정 화면에서 고른 값(쿠키·localStorage)이 최종 결정권을 가진다.
-export const DEFAULT_LOCALE: Locale = "ko";
+// NEXT_PUBLIC_LOCALE overrides the build default. A language explicitly chosen
+// in this edition's settings takes precedence in the browser.
+export const DEFAULT_LOCALE: Locale = "en";
 
 // 언어 선택기에 보여 주는 각 locale 의 자국어 표기. 어떤 언어로 보고 있든 자기 언어
 // 이름은 그 언어로 읽혀야 하므로 번역 대상이 아니라 고정 표기로 둔다.
@@ -18,8 +17,10 @@ export const LOCALE_LABELS: Record<Locale, string> = {
 
 // 사용자가 고른 표시 언어를 저장하는 키. 화면은 localStorage 값을 읽는다. 쿠키에도 같은
 // 값을 써 두지만 지금은 읽는 곳이 없다(서버가 언어를 판별해야 할 때를 위해 남겨 둔다).
-export const LOCALE_COOKIE = "artex_locale";
-export const LOCALE_STORAGE_KEY = "artex_locale";
+// Separate this edition's preference from the previous Korean installation so
+// existing browsers also start in English, including on login and setup pages.
+export const LOCALE_COOKIE = "artex_en_locale";
+export const LOCALE_STORAGE_KEY = "artex_en_locale";
 
 // 임의 문자열이 지원 locale 인지 좁혀 주는 가드.
 export function isLocale(raw: unknown): raw is Locale {

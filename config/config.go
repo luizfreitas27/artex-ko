@@ -39,9 +39,9 @@ type Config struct {
 var SupportedLanguages = []string{"en", "ko", "zh", "es"}
 
 // DefaultLanguage is the out-of-box user-facing language when nothing is
-// configured. artex-ko defaults to Korean; English, Chinese and Spanish are
+// configured. This edition defaults to English; other languages remain
 // selectable at runtime via the language setting (and ARTEX_LANG).
-const DefaultLanguage = "ko"
+const DefaultLanguage = "en"
 
 // NormalizeLanguage lower-cases and validates a language code, returning "" when
 // the code is empty or unsupported (so callers can fall through to the next source).
@@ -65,7 +65,7 @@ var CurrentLanguage func() string
 // ActiveLanguage resolves the language for backend display strings. Precedence:
 // the runtime hook (settings table, via the server) over an unwired fallback of
 // "ko". Production always wires CurrentLanguage, so a fresh deploy resolves to the
-// configured default (DefaultLanguage = "ko") through that hook; the "ko" fallback
+// configured default (DefaultLanguage = "en") through that hook; the "ko" fallback
 // only applies when the hook is absent (unit tests / standalone), so the Korean
 // localization golden tests hold without each having to pin the language.
 func ActiveLanguage() string {

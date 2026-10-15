@@ -8,16 +8,19 @@ import (
 )
 
 // TestStartupMessageSwitchesLanguage pins that the DB-config startup error and
-// source labels follow ARTEX_LANG: Korean by default, English/Chinese/Spanish
-// when configured. Identifiers an operator must act on stay verbatim.
+// source labels follow ARTEX_LANG, defaulting to English in this edition.
+// Identifiers an operator must act on stay verbatim.
 func TestStartupMessageSwitchesLanguage(t *testing.T) {
 	dir := t.TempDir()
 	t.Setenv("ARTEX_PG_DSN", "")
 	t.Setenv("ARTEX_CONFIG", filepath.Join(dir, "nope.json"))
 
-	// Default (no ARTEX_LANG) → Korean (artex-ko default).
+	// Default (no ARTEX_LANG) → English.
 	t.Setenv("ARTEX_LANG", "")
-	assertKorean(t, "default startup error", mustDSNErr(t))
+	defaultError := mustDSNErr(t)
+	if got := Language(); got != "en" {
+		t.Fatalf("default language = %q, want en", got)
+	}
 
 	// Explicit Korean → Korean.
 	t.Setenv("ARTEX_LANG", "ko")
@@ -26,6 +29,9 @@ func TestStartupMessageSwitchesLanguage(t *testing.T) {
 	// English → no Hangul, keeps identifiers.
 	t.Setenv("ARTEX_LANG", "en")
 	en := mustDSNErr(t)
+	if defaultError != en {
+		t.Errorf("default startup error = %q, want English %q", defaultError, en)
+	}
 	if hasHangul(en) {
 		t.Errorf("en startup error should have no Hangul: %q", en)
 	}
