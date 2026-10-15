@@ -1,0 +1,11 @@
+# Compose loads this file automatically for the local English edition.
+services:
+  artex:
+    image: artex-en:local
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    environment:
+      ARTEX_LANG: en
+    volumes:
+      - ./jwt.key:/app/jwt.key

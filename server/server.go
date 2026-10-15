@@ -307,7 +307,7 @@ func New(ctx context.Context, m *Manager, skillDir string, dataDir string, keyDi
 		}
 		// Wire the user-facing output language. Precedence: the runtime setting a
 		// user picked in the UI (settings table) over the bootstrap default
-		// (config.Language() = ARTEX_LANG > config file > "ko"). Resolved once
+		// (config.Language() = ARTEX_LANG > config file > "en"). Resolved once
 		// here and cached in s.outputLang; putSettings refreshes the cache, so a
 		// language change in the UI applies to the next agent turn without a
 		// restart. Both agent.OutputLanguage (langDirective + wrap-up

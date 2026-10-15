@@ -1,10 +1,12 @@
 <div align="center">
 
-# ARTEX — Korean Edition
+# ARTEX — Local English Edition
 
 **An autonomous penetration-testing system driven by LLM multi-agents** (Go backend + Next.js frontend)
 
-The UI and generated output default to Korean, and **can be switched to English, Chinese or Spanish in Settings (System → Settings → Display language).** Changing the language also changes the language of agent-generated reports, summaries and chat replies.
+This fork defaults to **English** for the UI and new generated output, building on the Korean edition. Other translations remain available in **System → Settings → Display language**. Changing the language also changes new agent-generated reports, summaries and chat replies; existing reports retain their original content.
+
+For this fork's Docker build, first installation, and upgrade procedure, follow the [local English edition guide](docs/local-english-edition.md). The upstream distribution instructions below describe the original Korean edition.
 
 [한국어](README.md) · [中文](README.zh.md) · English
 
